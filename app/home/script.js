@@ -8,6 +8,7 @@ function login() {
     authAPI.login(username, password).then(data => id = data.id);
 }
 
+// get all the trees, and then add the html based on whether they were assigned to user or created by user
 function loadTrees() {
     treeAPI.treeList(username, password).then(data => {
         let assigned = [];
@@ -35,6 +36,8 @@ function loadTrees() {
     })
 }
 
+
+// create a tree box in the specific container with data
 let assignedCon;
 let createdCon;
 function DOMCreateTree(assigned, id, name, user) {
@@ -56,6 +59,7 @@ function DOMCreateTree(assigned, id, name, user) {
     }
 }
 
+// get all the useres and put them in the option list for users in the popup
 function loadUsersIntoPopup() {
     authAPI.userList().then(data => {
         let list = document.querySelector('.popup select');
@@ -66,6 +70,7 @@ function loadUsersIntoPopup() {
         }
     });
 }
+
 
 function openPopup() {
     document.querySelector('#overlay').style.display = 'block';
@@ -78,17 +83,20 @@ function closePopup() {
 }
 
 window.addEventListener('load', () => {
+    // API things for when the page loads
     login();
     loadTrees();
     loadUsersIntoPopup();
 
+    // event listeners for the popup (open / close)
     document.querySelector('.treeBox').addEventListener('click', openPopup);
-
     document.querySelector('#overlay').addEventListener('click', closePopup);
 
+    // get the containers for functions
     assignedCon = document.querySelector('.assigned .container .boxes');
     createdCon = document.querySelector('.created .container .boxes');
 
+    // get the form data and create a new tree from it
     let form = document.querySelector('.popup form');
     form.onsubmit = async (e) => {
         e.preventDefault();
