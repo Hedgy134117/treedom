@@ -1,0 +1,52 @@
+main {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 50% 50%;
+    height: 100%;
+
+
+    background: #F3F4F4;
+
+    font-family: 'EB Garamond', serif;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+.assigned, .created {
+    padding: 48px;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.boxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.treeBox {
+    border-radius: 12px;
+    margin: 24px 24px 0 0;
+    padding: 24px;
+    background-color: #ffffff;
+}
+.treeBox:hover {
+    cursor: pointer;
+}
+.treeBox__add {
+    color: #ffffff;
+    background-color: #24B01A;
+}
+
+.treeBox__title {
+    font-size: 2em;
+    margin-bottom: 1rem;
+}

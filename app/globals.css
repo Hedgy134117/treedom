@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap');
+
+html, body {
+    height: 100vh;
+}
+
+nav {
+    height: 100%;
+    grid-row: 1 / -1; /* span the entire left column */
+    display: flex;
+    justify-content: center; /* center children horizontally */
+    align-items: center; /* center children vertically */
+    font-size: 2em;
+    border-right: 1px solid #C5C5C5;
+}
+
+/* Overlay (from https://www.w3schools.com/howto/howto_css_overlay.asp) */
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+}
+
+/* Popup Form */
+.popup {
+    display: none; /* hidden by default */
+    position: absolute; /* position over other elements */
+    top: 50%; /* center vertically */
+    left: 50%; /* center horizontally */
+    transform: translate(-50%, -50%); /* magic */
+    padding: 24px;
+    border-radius: 6px;
+    width: 250px;
+    font-family: 'EB Garamond', serif;
+    background-color: #fff;
+}
+.popup__title {
+    margin-bottom: 24px;
+    font-size: 2em;
+}
+.popup__label {
+    margin-bottom: 12px;
+}
+.popup__input {
+    margin-bottom: 24px;
+    padding: 6px;
+    border: 2px solid #DCDCDC;
+    border-radius: 12px;
+}
+.popup__input:focus, .popup__button:focus {
+    outline: none; /* remove chrome black border */
+}
+.popup__button {
+    border: none;
+    border-radius: 12px;
+    padding: 6px;
+    background-color: transparent;
+    color: #24B01A;
+    transition: 250ms;
+}
+.popup__button:hover {
+    cursor: pointer;
+    background-color: #D2FECF;
+}
+.popup form {
+    display: flex;
+    flex-direction: column;
+}
+.popup span {
+    color: #24B01A;
+}
