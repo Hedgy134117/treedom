@@ -3,9 +3,20 @@ import { authAPI, treeAPI } from '../api.js';
 let username = 'user';
 let password = 'pass';
 let id;
+let users = {};
 
 function login() {
     authAPI.login(username, password).then(data => id = data.id);
+}
+
+// load users into an object, users[id] = username
+function loadUsers() {
+    authAPI.userList().then(data => {
+        console.log(data);
+        for (let i in data) {
+            users[data[i].id] = data[i].username;
+        }
+    });
 }
 
 // get all the trees, and then add the html based on whether they were assigned to user or created by user
@@ -36,7 +47,6 @@ function loadTrees() {
     })
 }
 
-
 // create a tree box in the specific container with data
 let assignedCon;
 let createdCon;
@@ -45,7 +55,7 @@ function DOMCreateTree(assigned, id, name, user) {
         assignedCon.insertAdjacentHTML('beforeend', `
         <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';">
             <p class="treeBox__title">${name}</p>
-            <p class="treeBox__text">Created by: ${user}</p>
+            <p class="treeBox__text">Created by: ${users[user]}</p>
         </div>
         `);
     }
@@ -53,7 +63,7 @@ function DOMCreateTree(assigned, id, name, user) {
         createdCon.insertAdjacentHTML('beforeend', `
         <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';">
             <p class="treeBox__title">${name}</p>
-            <p class="treeBox__text">Assigned to: ${user}</p>
+            <p class="treeBox__text">Assigned to: ${users[user]}</p>
         </div>
         `);
     }
@@ -71,7 +81,6 @@ function loadUsersIntoPopup() {
     });
 }
 
-
 function openPopup() {
     document.querySelector('#overlay').style.display = 'block';
     document.querySelector('.popup').style.display = 'block';
@@ -85,6 +94,7 @@ function closePopup() {
 window.addEventListener('load', () => {
     // API things for when the page loads
     login();
+    loadUsers();
     loadTrees();
     loadUsersIntoPopup();
 
