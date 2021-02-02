@@ -28,8 +28,27 @@
         <div class="trees"></div>
     </main>
 
+    <div id="overlay"></div>
+    <div class="popup">
+        <form>
+            <p class="popup__title">New Node</p>
+
+            <label class="popup__label" for="name">Name</label>
+            <input class="popup__input" type="text" name="name" autocomplete="off">
+
+            <label class="popup__label" for="desc">Description <span>(required)</span></label>
+            <input class="popup__input" type="text" name="desc" autocomplete="off" required>
+
+            <label class="popup__label" for="cost">Cost</label>
+            <input class="popup__input" type="text" name="cost" autocomplete="off">
+
+            <button class="popup__button" type="submit">Create</button>
+        </form>
+    </div>
+
     <script type="module" src="../api.js"></script>
     <script type="module" src="script.js"></script>
+    <script src="nodes.js"></script>
 </body>
 
 </html>
