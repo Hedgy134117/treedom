@@ -19,7 +19,15 @@ function loadTree() {
         // we don't question this function
         function traverse(root) {
             html += `<li>`;
-            html += `<span class="tf-nc">${root.desc}</span>`;
+
+            // what to do with each element
+            let _class = 'tf-nc ' + (root.active ? 'active' : '');
+            html += `<div class="${_class}">
+                <p class="tf-nc__desc">${root.desc}</p>
+                <p class="tf-nc__price">${root.price}</p>
+            </div>`;
+
+            // actually makes a tree
             if (root.node_set.length > 0) {
                 html += `<ul>`;
             }
@@ -29,11 +37,12 @@ function loadTree() {
             if (root.node_set.length > 0) {
                 html += `</ul>`;
             }
+
             html += `</li>`;
         }
 
         for (const node of data.node_set) {
-            html += `<div class="tf-tree"><ul>`;
+            html += `<div class="tf-tree tf-custom"><ul>`;
             traverse(node);
             html += `</div></ul>`
         }
