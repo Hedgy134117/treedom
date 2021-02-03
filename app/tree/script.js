@@ -33,6 +33,7 @@ function loadTree() {
                 <p class="tf-nc__desc">${root.desc}</p>
                 <p class="tf-nc__price">${root.price}</p>
                 <button class="tf-nc__add">Add</button>
+                <button class="tf-nc__toggle">Toggle</button>
             </div>`;
 
             // actually makes a tree
@@ -57,9 +58,11 @@ function loadTree() {
 
         treeCon.innerHTML = html;
 
+        // add button events to each node
         for (const node of treeCon.querySelectorAll('.tf-nc')) {
             let nodeId = node.getAttribute('data-id');
             node.querySelector('.tf-nc__add').addEventListener('click', () => openAddPopup(nodeId));
+            node.querySelector('.tf-nc__toggle').addEventListener('click', () => toggleNode(nodeId, node.classList.contains('active')));
         }
     });
 }
@@ -90,6 +93,13 @@ async function addNode(e) {
 function closePopup() {
     document.querySelector('#overlay').style.display = 'none';
     document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+}
+
+function toggleNode(id, isActive) {
+    let data = { "active": !isActive };
+    nodeAPI.editNode(username, password, treeId, id, data).then(data => {
+        loadTree();
+    });
 }
 
 window.addEventListener('load', () => {
