@@ -108,6 +108,6 @@ window.addEventListener('load', () => {
 
     // event listeners for the popup (close)
     document.querySelector('#overlay').addEventListener('click', closePopup);
-    let form = document.querySelector('.popup form');
-    form.onsubmit = async (e) => addNode(e);
+    let addNodeForm = document.querySelector('.popup.popup__add form');
+    addNodeForm.onsubmit = async (e) => addNode(e);
 });
