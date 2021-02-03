@@ -66,11 +66,13 @@ class treeAPI {
 }
 
 class nodeAPI {
-    static async addNode(user, pass, id, desc, parent) {
+    static async addNode(user, pass, id, desc, parent, name, cost) {
         let settings = getAuth('POST', user, pass);
         settings.body = JSON.stringify({
             'desc': desc,
-            'parent': parent
+            'parent': parent,
+            'name': name,
+            'price': cost
         });
         const res = await fetch(baseUrl + `trees/trees/${id}/`, settings);
         return res.json();

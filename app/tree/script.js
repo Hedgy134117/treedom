@@ -29,9 +29,10 @@ function loadTree() {
             // what to do with each element
             let _class = 'tf-nc ' + (root.active ? 'active' : '');
             html += `<div class="${_class}" data-id="${root.id}">
+                <p class="tf-nc__name">${root.name}</p>
                 <p class="tf-nc__desc">${root.desc}</p>
                 <p class="tf-nc__price">${root.price}</p>
-                <button onclick="addNode(this.parentElement)">Add</button>
+                <button class="tf-nc__add">Add</button>
             </div>`;
 
             // actually makes a tree
@@ -55,12 +56,40 @@ function loadTree() {
         }
 
         treeCon.innerHTML = html;
+
+        for (const node of treeCon.querySelectorAll('.tf-nc')) {
+            let nodeId = node.getAttribute('data-id');
+            node.querySelector('.tf-nc__add').addEventListener('click', () => openAddPopup(nodeId));
+        }
+    });
+}
+
+function openAddPopup(id) {
+    document.querySelector('#overlay').style.display = 'block';
+    document.querySelector('.popup.popup__add').style.display = 'block';
+    document.querySelector('.popup.popup__add form').setAttribute('data-id', id);
+}
+
+async function addNode(e) {
+    e.preventDefault();
+    let form = document.querySelector('.popup.popup__add form');
+    let data = new FormData(form);
+    let name = data.get('name');
+    let desc = data.get('desc');
+    let cost = data.get('cost');
+    let parentId = form.getAttribute('data-id');
+    console.log(parentId);
+    console.log(form);
+    await nodeAPI.addNode(username, password, treeId, desc, parentId, name, cost).then(data => {
+        loadTree();
+        form.reset();
+        closePopup();
     });
 }
 
 function closePopup() {
     document.querySelector('#overlay').style.display = 'none';
-    document.querySelector('.popup').style.display = 'none';
+    document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
 }
 
 window.addEventListener('load', () => {
@@ -70,17 +99,5 @@ window.addEventListener('load', () => {
     // event listeners for the popup (close)
     document.querySelector('#overlay').addEventListener('click', closePopup);
     let form = document.querySelector('.popup form');
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        let data = new FormData(document.querySelector('.popup form'));
-        let name = data.get('name');
-        let desc = data.get('desc');
-        let cost = data.get('cost');
-        let parentId = getParentId();
-        await nodeAPI.addNode(username, password, treeId, desc, parentId).then(data => {
-            loadTree();
-            form.reset();
-            closePopup();
-        });
-    }
+    form.onsubmit = async (e) => addNode(e);
 });
