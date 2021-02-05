@@ -1,7 +1,7 @@
 import { authAPI, treeAPI } from '../api.js';
 
-let username = 'user';
-let password = 'pass';
+let username = window.localStorage.getItem('td-username');
+let password = window.localStorage.getItem('td-password');
 let id;
 let users = {};
 
@@ -12,7 +12,6 @@ function login() {
 // load users into an object, users[id] = username
 function loadUsers() {
     authAPI.userList().then(data => {
-        console.log(data);
         for (let i in data) {
             users[data[i].id] = data[i].username;
         }

@@ -1,0 +1,32 @@
+main {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    align-items: center;
+    justify-items: center;
+
+    background: #F3F4F4;
+
+    font-family: 'EB Garamond', serif;
+}
+
+h1 {
+    font-size: 4em;
+    text-align: center;
+}
+
+.popup__label-center {
+    text-align: center;
+}
+.popup__clickable:hover {
+    cursor: pointer;
+}
+.popup__error {
+    display: none;
+    color: #ff5555;
+    margin-bottom: 24px;
+}
+
+.signup {
+    display: none;
+}

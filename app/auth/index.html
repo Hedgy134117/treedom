@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treedom</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../globals.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <div class="login popup-noncenter" style="display: block">
+            <form>
+                <p class="popup__title">Welcome back.</p>
+
+                <p class="popup__error">Error</p>
+
+                <label class="popup__label" for="username">Username <span>(required)</span></label>
+                <input class="popup__input" type="text" name="username" autocomplete="off" required>
+
+                <label class="popup__label" for="password">Password <span>(required)</span></label>
+                <input class="popup__input" type="password" name="password" autocomplete="off" required>
+
+                <button class="popup__button" type="submit">Login</button><br>
+                <label class="popup__label popup__label-center">New here? <span class="popup__clickable">Sign
+                        up</span></label>
+            </form>
+        </div>
+        <div class="signup popup-noncenter" style="display: none">
+            <form>
+                <p class="popup__title">Welcome.</p>
+
+                <p class="popup__error">Error</p>
+
+                <label class="popup__label" for="username">Username <span>(required)</span></label>
+                <input class="popup__input" type="text" name="username" autocomplete="off" required>
+
+                <label class="popup__label" for="password">Password <span>(required)</span></label>
+                <input class="popup__input" type="password" name="password" autocomplete="off" required>
+
+                <button class="popup__button" type="submit">Sign up</button><br>
+                <label class="popup__label popup__label-center">Not new here? <span class="popup__clickable">Sign
+                        in</span></label>
+            </form>
+        </div>
+        <div class="ad">
+            <h1>Treedom</h1>
+            <p>The perfect website for all your tree needs.</p>
+        </div>
+    </main>
+
+    <script type="module" src="../api.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

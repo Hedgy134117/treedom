@@ -1,7 +1,7 @@
 import { authAPI, treeAPI, nodeAPI } from '../api.js';
 
-let username = 'user';
-let password = 'pass';
+let username = window.localStorage.getItem('td-username');
+let password = window.localStorage.getItem('td-password');
 let id;
 let treeId;
 

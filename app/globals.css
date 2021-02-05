@@ -40,6 +40,13 @@ nav {
     font-family: 'EB Garamond', serif;
     background-color: #fff;
 }
+.popup-noncenter {
+    padding: 24px;
+    border-radius: 6px;
+    width: 250px;
+    font-family: 'EB Garamond', serif;
+    background-color: #fff;
+}
 .popup__title {
     margin-bottom: 24px;
     font-size: 2em;
@@ -68,10 +75,10 @@ nav {
     cursor: pointer;
     background-color: #D2FECF;
 }
-.popup form {
+.popup form, .popup-noncenter form {
     display: flex;
     flex-direction: column;
 }
-.popup span {
+.popup span, .popup-noncenter span {
     color: #24B01A;
 }
