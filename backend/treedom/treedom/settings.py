@@ -27,7 +27,8 @@ SECRET_KEY = secrets.key
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'hedgy1.pythonanywhere.com',
+    "hedgy1.pythonanywhere.com",
+    "127.0.0.1",
 ]
 
 

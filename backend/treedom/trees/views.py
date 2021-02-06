@@ -34,6 +34,9 @@ class TreeList(APIView):
         print(serializer.initial_data)
         if serializer.is_valid():
             serializer.save()
+            Node.objects.create(
+                tree=Tree.objects.get(id=serializer.data["id"]), desc="Root"
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
