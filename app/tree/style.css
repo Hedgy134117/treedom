@@ -6,6 +6,7 @@ main {
     background: #F3F4F4;
 
     font-family: 'EB Garamond', serif;
+    overflow-y: auto;
 }
 
 .trees {

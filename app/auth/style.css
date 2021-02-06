@@ -30,3 +30,13 @@ h1 {
 .signup {
     display: none;
 }
+
+@media only screen and (max-width: 800px) {
+    main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 60%;
+    }
+    .ad {
+        grid-row: 1;
+    }
+}

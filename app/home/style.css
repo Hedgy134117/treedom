@@ -50,3 +50,12 @@ h1 {
     font-size: 2em;
     margin-bottom: 1rem;
 }
+
+@media only screen and (max-width: 800px) {
+    h1 {
+        font-size: 2em;
+    }
+    .treeBox__title {
+        font-size: 1.5em;
+    }
+}
