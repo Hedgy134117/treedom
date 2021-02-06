@@ -1,4 +1,4 @@
-let baseUrl = 'http://127.0.0.1:8000/';
+let baseUrl = 'http://hedgy1.pythonanywhere.com/';
 
 const getAuth = (method, user, pass) => {
     return {
