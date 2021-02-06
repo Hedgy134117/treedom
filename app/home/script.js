@@ -5,13 +5,17 @@ let password = window.localStorage.getItem('td-password');
 let id;
 let users = {};
 
-function login() {
-    authAPI.login(username, password).then(data => id = data.id);
+async function login() {
+    await authAPI.login(username, password).then(data => {
+        console.log('1 logged in');
+        id = data.id
+    });
 }
 
 // load users into an object, users[id] = username
-function loadUsers() {
-    authAPI.userList().then(data => {
+async function loadUsers() {
+    await authAPI.userList().then(data => {
+        console.log('2 loaded users');
         for (let i in data) {
             users[data[i].id] = data[i].username;
         }
@@ -19,8 +23,9 @@ function loadUsers() {
 }
 
 // get all the trees, and then add the html based on whether they were assigned to user or created by user
-function loadTrees() {
-    treeAPI.treeList(username, password).then(data => {
+async function loadTrees() {
+    await treeAPI.treeList(username, password).then(data => {
+        console.log('3 added trees');
         let assigned = [];
         let created = [];
         for (let i in data) {
@@ -41,8 +46,6 @@ function loadTrees() {
             const tree = created[i];
             DOMCreateTree(false, tree.id, tree.name, tree.user);
         }
-
-        return;
     })
 }
 
@@ -69,14 +72,17 @@ function DOMCreateTree(assigned, id, name, user) {
 }
 
 // get all the useres and put them in the option list for users in the popup
-function loadUsersIntoPopup() {
-    authAPI.userList().then(data => {
+async function loadUsersIntoPopup() {
+    await authAPI.userList().then(data => {
+        console.log('4 loaded popup');
         let list = document.querySelector('.popup select');
         for (let i in data) {
             list.insertAdjacentHTML('beforeend', `
             <option value=${data[i].id}>${data[i].username}</option>
             `)
         }
+        return 1;
+
     });
 }
 
@@ -90,12 +96,16 @@ function closePopup() {
     document.querySelector('.popup').style.display = 'none';
 }
 
+async function loadPage() {
+    await login();
+    await loadUsers();
+    await loadTrees();
+    await loadUsersIntoPopup();
+}
+
 window.addEventListener('load', () => {
     // API things for when the page loads
-    login();
-    loadUsers();
-    loadTrees();
-    loadUsersIntoPopup();
+    loadPage();
 
     // event listeners for the popup (open / close)
     document.querySelector('.treeBox').addEventListener('click', openPopup);
