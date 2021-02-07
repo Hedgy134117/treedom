@@ -49,13 +49,70 @@ async function loadTrees() {
     })
 }
 
+// get all the useres and put them in the option list for users in the popup
+async function loadUsersIntoPopup() {
+    await authAPI.userList().then(data => {
+        console.log('4 loaded popup');
+        let lists = document.querySelectorAll('.popup select');
+        for (let i in data) {
+            for (const list of lists) {
+                list.insertAdjacentHTML('beforeend', `
+                <option value=${data[i].id}>${data[i].username}</option>
+                `)
+            }
+        }
+    });
+}
+
+
+function createTree(e) {
+    e.preventDefault();
+    let form = document.querySelector('.new form');
+    let data = new FormData(form);
+    let name = data.get('name');
+    let user = data.get('user');
+    treeAPI.createTree(username, password, name, user).then(data => {
+        if (data.user == data.creator) {
+            DOMCreateTree(true, data.id, data.name, data.creator)
+            DOMCreateTree(false, data.id, data.name, data.user)
+        }
+        else {
+            DOMCreateTree(false, data.id, data.name, data.user)
+        }
+
+        form.reset();
+        closePopup();
+    });
+}
+
+function editTree(e) {
+    e.preventDefault();
+    let form = document.querySelector('.edit form');
+    let data = new FormData(form);
+    let id = form.getAttribute('data-id');
+    let name = data.get('name');
+    let user = data.get('user');
+    let editData = { 'name': name, 'user': user };
+    treeAPI.editTree(username, password, id, editData).then(d => {
+        document.querySelectorAll(`.treeBox[data-id="${id}"]`).forEach(box => {
+            console.log(box);
+            box.querySelector('.treeBox__title').innerText = name;
+            box.querySelector('.treeBox__text').innerText = box.querySelector('.treeBox__text').innerText.split(':')[0] + `: ${users[user]}`;
+        });
+
+        form.reset();
+        closePopup();
+    });
+}
+
+
 // create a tree box in the specific container with data
 let assignedCon;
 let createdCon;
 function DOMCreateTree(assigned, id, name, user) {
     if (assigned) {
         assignedCon.insertAdjacentHTML('beforeend', `
-        <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';">
+        <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';" data-id="${id}">
             <p class="treeBox__title">${name}</p>
             <p class="treeBox__text">Created by: ${users[user]}</p>
         </div>
@@ -63,37 +120,35 @@ function DOMCreateTree(assigned, id, name, user) {
     }
     else {
         createdCon.insertAdjacentHTML('beforeend', `
-        <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';">
+        <div class="treeBox treeBox-created" onclick="window.location = '../tree/index.html?id=${id}';" data-id="${id}">
             <p class="treeBox__title">${name}</p>
             <p class="treeBox__text">Assigned to: ${users[user]}</p>
+            <button class="treeBox__button">Edit</button>
         </div>
         `);
+        document.querySelector(`.treeBox-created[data-id="${id}"] button`).addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEditPopup(id, name, user);
+        });
     }
 }
 
-// get all the useres and put them in the option list for users in the popup
-async function loadUsersIntoPopup() {
-    await authAPI.userList().then(data => {
-        console.log('4 loaded popup');
-        let list = document.querySelector('.popup select');
-        for (let i in data) {
-            list.insertAdjacentHTML('beforeend', `
-            <option value=${data[i].id}>${data[i].username}</option>
-            `)
-        }
-        return 1;
-
-    });
+function openNewPopup() {
+    document.querySelector('#overlay').style.display = 'block';
+    document.querySelector('.popup.new').style.display = 'block';
 }
 
-function openPopup() {
+function openEditPopup(id, name, user) {
     document.querySelector('#overlay').style.display = 'block';
-    document.querySelector('.popup').style.display = 'block';
+    document.querySelector('.popup.edit').style.display = 'block';
+    document.querySelector('.popup.edit form').setAttribute('data-id', id);
+    document.querySelector('.popup.edit input[name="name"]').value = name;
+    document.querySelector('.popup.edit select[name="user"]').value = user;
 }
 
 function closePopup() {
     document.querySelector('#overlay').style.display = 'none';
-    document.querySelector('.popup').style.display = 'none';
+    document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
 }
 
 async function loadPage() {
@@ -108,31 +163,16 @@ window.addEventListener('load', () => {
     loadPage();
 
     // event listeners for the popup (open / close)
-    document.querySelector('.treeBox').addEventListener('click', openPopup);
+    document.querySelector('.treeBox').addEventListener('click', openNewPopup);
     document.querySelector('#overlay').addEventListener('click', closePopup);
 
     // get the containers for functions
     assignedCon = document.querySelector('.assigned .container .boxes');
     createdCon = document.querySelector('.created .container .boxes');
 
-    // get the form data and create a new tree from it
-    let form = document.querySelector('.popup form');
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        let data = new FormData(document.querySelector('.popup form'));
-        let name = data.get('name');
-        let user = data.get('user');
-        await treeAPI.createTree(username, password, name, user).then(data => {
-            if (data.user == data.creator) {
-                DOMCreateTree(true, data.id, data.name, data.creator)
-                DOMCreateTree(false, data.id, data.name, data.user)
-            }
-            else {
-                DOMCreateTree(false, data.id, data.name, data.user)
-            }
-
-            form.reset();
-            closePopup();
-        });
-    }
+    // form submit 
+    let createTreeForm = document.querySelector('.new form');
+    createTreeForm.onsubmit = (e) => createTree(e);
+    let editTreeForm = document.querySelector('.edit form');
+    editTreeForm.onsubmit = (e) => editTree(e);
 })

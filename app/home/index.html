@@ -46,7 +46,7 @@
     </main>
 
     <div id="overlay"></div>
-    <div class="popup">
+    <div class="new popup">
         <form>
             <p class="popup__title">New Tree</p>
 
@@ -59,6 +59,21 @@
             </select>
 
             <button class="popup__button" type="submit">Create</button>
+        </form>
+    </div>
+    <div class="edit popup">
+        <form>
+            <p class="popup__title">Edit Tree</p>
+
+            <label class="popup__label" for="name">Name <span>(required)</span></label>
+            <input class="popup__input" type="text" name="name" autocomplete="off" required>
+
+            <label class="popup__label" for="user">Assign To</label>
+            <select class="popup__input" autocomplete="off" name="user">
+
+            </select>
+
+            <button class="popup__button" type="submit">Save</button>
         </form>
     </div>
 
