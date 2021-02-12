@@ -29,6 +29,9 @@ async function loadTrees() {
         let assigned = [];
         let created = [];
         for (let i in data) {
+            if (username == 'admin') {
+                assigned.push(data[i]);
+            }
             if (data[i].user == id) {
                 assigned.push(data[i]);
             }
