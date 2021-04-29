@@ -127,7 +127,7 @@ class VoidTreeList(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        """ Get all trees """
+        """ Get all VOID trees """
         trees = VoidTree.objects.all()
         serializer = VoidTreeSerializer(instance=trees, many=True)
 
@@ -138,7 +138,7 @@ class VoidTreeList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        """ Create a tree """
+        """ Create a VOID tree """
         serializer = VoidTreeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -151,13 +151,13 @@ class VoidTreeList(APIView):
 
 class VoidTreeDetail(APIView):
     """
-    Get the details about a tree, edit a tree, or add a node to a tree
+    Get the details about a VOID tree, edit a VOID tree, or add a VOID node to a VOID tree
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, treeId):
-        """ Get details about a tree """
+        """ Get details about a VOID tree """
         tree = VoidTree.objects.get(id=treeId)
         serializer = VoidTreeSerializer(instance=tree)
 
@@ -174,7 +174,7 @@ class VoidTreeDetail(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def patch(self, request, treeId):
-        """ Edit details about a tree """
+        """ Edit details about a VOID tree """
         tree = VoidTree.objects.get(id=treeId)
         serializer = VoidTreeSerializer(instance=tree, data=request.data, partial=True)
 
@@ -184,7 +184,7 @@ class VoidTreeDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, treeId):
-        """ Add a node to a tree """
+        """ Add a VOID node to a VOID tree """
         tree = VoidTree.objects.get(id=treeId)
         serializer = VoidNodeSerializer(data=request.data)
         serializer.initial_data["tree"] = tree.id
@@ -196,19 +196,19 @@ class VoidTreeDetail(APIView):
 
 class VoidNodeDetail(APIView):
     """
-    Get the details about a node, edit a node, or delete a node
+    Get the details about a VOID node, edit a VOID node, or delete a VOID node
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, treeId, nodeId):
-        """ Get details about a node """
+        """ Get details about a VOID node """
         node = VoidNode.objects.get(id=nodeId)
         serializer = VoidNodeSerializer(instance=node)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def patch(self, request, treeId, nodeId):
-        """ Edit a node """
+        """ Edit a VOID node """
         node = VoidNode.objects.get(id=nodeId)
         serializer = VoidNodeSerializer(instance=node, data=request.data, partial=True)
         if serializer.is_valid():
@@ -217,7 +217,7 @@ class VoidNodeDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, treeId, nodeId):
-        """ Delete a node """
+        """ Delete a VOID node """
         node = VoidNode.objects.get(id=nodeId)
         node.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
