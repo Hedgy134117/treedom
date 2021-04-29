@@ -1,5 +1,6 @@
+from django.db.models.fields import BooleanField
 from rest_framework import serializers
-from .models import Tree, Node
+from .models import Tree, Node, VoidTree, VoidNode
 
 
 # https://stackoverflow.com/a/27236783/11780944
@@ -23,3 +24,19 @@ class TreeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tree
         fields = ["id", "name", "user", "creator", "node_set"]
+
+
+class VoidNodeSerializer(serializers.ModelSerializer):
+    voidnode_set = RecursiveField(many=True, read_only=True)
+
+    class Meta:
+        model = VoidNode
+        fields = "__all__"
+
+
+class VoidTreeSerializer(serializers.ModelSerializer):
+    voidnode_set = VoidNodeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = VoidTree
+        fields = ["id", "name", "voidnode_set"]
