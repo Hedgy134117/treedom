@@ -1,0 +1,43 @@
+main {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    height: 100%;
+
+    background: #F3F4F4;
+
+    font-family: 'EB Garamond', serif;
+    overflow-y: auto;
+}
+
+.trees {
+    display: flex;
+    flex-direction: row;
+}
+
+/* custom tree, !important to override defaults */
+.tf-custom {
+    font-size: 20px !important;
+}
+.tf-custom .tf-nc {
+    border: none !important;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+.tf-nc {
+    max-width: 350px;
+}
+.tf-custom .tf-nc:before, .tf-custom .tf-nc:after {
+    border-left-color: #C5C5C5 !important;
+}
+.tf-custom li li:before {
+    border-top-color: #C5C5C5 !important;
+    
+}
+
+.tf-nc__price {
+    font-style: italic;
+}
+
+.active {
+    background-color: #D2FECF !important;
+}
