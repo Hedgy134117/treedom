@@ -30,6 +30,9 @@ main {
     width: 50%;
     text-align: center;
 }
+.trees__newTreeButton:hover {
+    cursor: pointer;
+}
 .trees__search {
     width: 90%;
 }

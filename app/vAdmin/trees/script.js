@@ -20,6 +20,19 @@ async function loadTrees() {
     }
 }
 
+async function createTree(e) {
+    e.preventDefault();
+    let form = document.querySelector('.new form');
+    let data = new FormData(form);
+    let name = data.get('name');
+    treeAPI.createTree(name).then(data => {
+        DOMCreateTree(name, data.id);
+
+        form.reset();
+        closePopup();
+    });
+}
+
 function DOMCreateTree(name, id) {
     document.querySelector(".trees__list").insertAdjacentHTML("beforeend", `
     <div class="tree" onclick="window.open('../../vTree/index.html?id=${id}', '_blank');">
@@ -44,6 +57,17 @@ function search() {
 }
 
 
+function openNewPopup() {
+    document.querySelector('#overlay').style.display = 'block';
+    document.querySelector('.popup.new').style.display = 'block';
+}
+
+function closePopup() {
+    document.querySelector('#overlay').style.display = 'none';
+    document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+}
+
+
 async function loadPage() {
     await login();
     await loadTrees();
@@ -51,5 +75,13 @@ async function loadPage() {
 
 window.addEventListener('load', () => {
     loadPage();
-    document.querySelector(".trees__search input").addEventListener("input", search)
+    document.querySelector(".trees__search input").addEventListener("input", search);
+
+    // event listeners for the popup (open / close)
+    document.querySelector('.trees__newTreeButton').addEventListener('click', openNewPopup);
+    document.querySelector('#overlay').addEventListener('click', closePopup);
+
+    // form submit 
+    let createTreeForm = document.querySelector('.new form');
+    createTreeForm.onsubmit = (e) => createTree(e);
 });
