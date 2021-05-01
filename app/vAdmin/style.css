@@ -8,6 +8,11 @@ main {
     font-family: 'EB Garamond', serif;
 }
 
+.nonclickable {
+    pointer-events: none;
+    filter: grayscale(100%);
+}
+
 .players {
     display: flex;
     align-items: center;

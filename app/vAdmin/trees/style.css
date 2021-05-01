@@ -1,0 +1,66 @@
+main {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    height: 100%;
+
+    background: #F3F4F4;
+
+    font-family: 'EB Garamond', serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.trees {
+    display: grid;
+    margin: 24px;
+    grid-template-columns: 100px 1fr;
+    grid-auto-rows: 10% 1fr;
+    align-items: center;
+    justify-items: center;
+}
+.trees__newTreeButton {
+    background-color: #24B01A;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 2em;
+    width: 50%;
+    text-align: center;
+}
+.trees__search {
+    width: 90%;
+}
+.trees__search input {
+    border: 2px solid #DCDCDC;
+    padding: 18px;
+    border-radius: 16px;    
+    width: 100%;
+    font-size: 1.5em;
+}
+.trees__search input:focus {
+    outline: none;
+}
+.trees__list {
+    grid-column: span 2;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-content: start;
+    justify-items: center;
+    grid-template-columns: repeat(5, 20%);
+}
+
+.tree {
+    background-color: #fff;
+    padding: 24px;
+    margin: 24px;
+    font-size: 2em;
+    border-radius: 16px;
+    width: 50%;
+}
+.tree:hover {
+    cursor: pointer;
+}
