@@ -15,7 +15,9 @@ async function login() {
 async function loadUsers() {
     await authAPI.userList().then(data => {
         for (let user of data) {
-            DOMCreatePlayer(user.id, user.username, user.voidPoints, user.skills);
+            if (user.inVoid) {
+                DOMCreatePlayer(user.id, user.username, user.voidPoints, user.skills);
+            }
         }
     });
 }
