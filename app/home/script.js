@@ -3,19 +3,21 @@ import { authAPI, treeAPI } from '../api.js';
 let username = window.localStorage.getItem('td-username');
 let password = window.localStorage.getItem('td-password');
 let id;
+let inVoid;
+let voidAdmin;
 let users = {};
 
 async function login() {
     await authAPI.login(username, password).then(data => {
-        console.log('1 logged in');
-        id = data.id
+        id = data.id;
+        inVoid = data.inVoid;
+        voidAdmin = data.voidAdmin;
     });
 }
 
 // load users into an object, users[id] = username
 async function loadUsers() {
     await authAPI.userList().then(data => {
-        console.log('2 loaded users');
         for (let i in data) {
             users[data[i].id] = data[i].username;
         }
@@ -25,7 +27,6 @@ async function loadUsers() {
 // get all the trees, and then add the html based on whether they were assigned to user or created by user
 async function loadTrees() {
     await treeAPI.treeList(username, password).then(data => {
-        console.log('3 added trees');
         let assigned = [];
         let created = [];
         for (let i in data) {
@@ -52,10 +53,9 @@ async function loadTrees() {
     })
 }
 
-// get all the useres and put them in the option list for users in the popup
+// get all the users and put them in the option list for users in the popup
 async function loadUsersIntoPopup() {
     await authAPI.userList().then(data => {
-        console.log('4 loaded popup');
         let lists = document.querySelectorAll('.popup select');
         for (let i in data) {
             for (const list of lists) {
@@ -98,7 +98,6 @@ function editTree(e) {
     let editData = { 'name': name, 'user': user };
     treeAPI.editTree(username, password, id, editData).then(d => {
         document.querySelectorAll(`.treeBox[data-id="${id}"]`).forEach(box => {
-            console.log(box);
             box.querySelector('.treeBox__title').innerText = name;
             box.querySelector('.treeBox__text').innerText = box.querySelector('.treeBox__text').innerText.split(':')[0] + `: ${users[user]}`;
         });
@@ -154,8 +153,19 @@ function closePopup() {
     document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
 }
 
+function addVoidToNav() {
+    if (inVoid) {
+        document.querySelector("nav").innerHTML += `
+        <a href="../${voidAdmin ? `vAdmin` : `vHome`}/index.html">
+            <i class="bi bi-door-open"></i>
+        </a>
+        `;
+    }
+}
+
 async function loadPage() {
     await login();
+    addVoidToNav();
     await loadUsers();
     await loadTrees();
     await loadUsersIntoPopup();

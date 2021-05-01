@@ -10,8 +10,13 @@ nav {
     display: flex;
     justify-content: center; /* center children horizontally */
     align-items: center; /* center children vertically */
+    flex-direction: column;
     font-size: 2em;
     border-right: 1px solid #C5C5C5;
+}
+
+nav a {
+    margin: 1rem 0;
 }
 
 /* Overlay (from https://www.w3schools.com/howto/howto_css_overlay.asp) */
