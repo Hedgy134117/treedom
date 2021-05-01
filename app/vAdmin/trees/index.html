@@ -3,13 +3,50 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Void Admin Tree List</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="../../globals.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
 <body>
+    <main>
+        <nav>
+            <a href="../../home/index.html"><i class="bi bi-tree"></i></a>
+            <a href="../index.html"><i class="bi bi-door-open"></i></a>
+        </nav>
 
+        <div class="trees">
+            <div class="trees__newTreeButton">+</div>
+            <div class="trees__search"><input type="text" placeholder="Search..."></div>
+            <div class="trees__list">
+            </div>
+        </div>
+    </main>
+
+    <div id="overlay"></div>
+    <div class="new popup">
+        <form>
+            <p class="popup__title">New Tree</p>
+
+            <label class="popup__label" for="name">Name <span>(required)</span></label>
+            <input class="popup__input" type="text" name="name" autocomplete="off" required>
+
+            <button class="popup__button" type="submit">Create</button>
+        </form>
+    </div>
+
+    <script type="module" src="../../api.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

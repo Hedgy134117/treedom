@@ -114,7 +114,7 @@ let createdCon;
 function DOMCreateTree(assigned, id, name, user) {
     if (assigned) {
         assignedCon.insertAdjacentHTML('beforeend', `
-        <div class="treeBox" onclick="window.location = '../tree/index.html?id=${id}';" data-id="${id}">
+        <div class="treeBox" onclick="window.open('../tree/index.html?id=${id}', '_blank');" data-id="${id}">
             <p class="treeBox__title">${name}</p>
             <p class="treeBox__text">Created by: ${users[user]}</p>
         </div>
@@ -122,7 +122,7 @@ function DOMCreateTree(assigned, id, name, user) {
     }
     else {
         createdCon.insertAdjacentHTML('beforeend', `
-        <div class="treeBox treeBox-created" onclick="window.location = '../tree/index.html?id=${id}';" data-id="${id}">
+        <div class="treeBox treeBox-created" onclick="window.open('../tree/index.html?id=${id}', '_blank');" data-id="${id}">
             <p class="treeBox__title">${name}</p>
             <p class="treeBox__text">Assigned to: ${users[user]}</p>
             <button class="treeBox__button">Edit</button>

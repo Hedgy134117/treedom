@@ -36,7 +36,6 @@ class TreeList(APIView):
         """ Create a tree """
         serializer = TreeSerializer(data=request.data)
         serializer.initial_data["creator"] = request.user.id
-        print(serializer.initial_data)
         if serializer.is_valid():
             serializer.save()
             Node.objects.create(
@@ -164,7 +163,6 @@ class VoidTreeDetail(APIView):
         # Remove children from repeating
         childNodes = []
         for node in serializer.data["voidnode_set"]:
-            print(node)
             if node["parent"] != None:
                 childNodes.append(node)
 

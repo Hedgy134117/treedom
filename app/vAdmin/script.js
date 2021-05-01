@@ -23,9 +23,14 @@ async function loadUsers() {
 }
 
 async function addPoints(id) {
+    let player = document.querySelector(`.player[data-id="${id}"]`)
+
+    player.querySelector(`.player__pointsButton`).classList.toggle('nonclickable');
     let points = await authAPI.addPoint(username, password, id);
+    player.querySelector(`.player__pointsButton`).classList.toggle('nonclickable');
+
     points = points.voidPoints;
-    document.querySelector(`.player[data-id="${id}"] .player__points`).innerText = `${points} Points`;
+    player.querySelector(`.player__points`).innerText = `${points} Points`;
 }
 
 function DOMCreatePlayer(id, name, points, skills) {

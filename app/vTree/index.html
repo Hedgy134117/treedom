@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="../reset.css">
+    <link rel="stylesheet" href="../globals.css">
+    <!-- <link rel="stylesheet" href="../tree/style.css"> -->
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css">
+</head>
+
+<body>
+    <main>
+        <nav>
+            <a href="../home/index.html"><i class="bi bi-tree"></i></a>
+        </nav>
+
+        <div class="trees">
+
+        </div>
+    </main>
+
+    <div id="overlay"></div>
+    <div class="popup popup__add">
+        <form>
+            <p class="popup__title">New Node</p>
+
+            <label class="popup__label" for="name">Name</label>
+            <input class="popup__input" type="text" name="name" autocomplete="off">
+
+            <label class="popup__label" for="desc">Description <span>(required)</span></label>
+            <input class="popup__input" type="text" name="desc" autocomplete="off" required>
+
+            <label class="popup__label" for="users">Users</label>
+            <select class="popup__input" autocomplete="off" name="users" multiple>
+
+            </select>
+
+            <button class="popup__button" type="submit">Create</button>
+        </form>
+    </div>
+    <div class="edit popup">
+        <form>
+            <p class="popup__title">Edit Node</p>
+
+            <label class="popup__label" for="name">Name</label>
+            <input class="popup__input" type="text" name="name" autocomplete="off">
+
+            <label class="popup__label" for="desc">Description <span>(required)</span></label>
+            <input class="popup__input" type="text" name="desc" autocomplete="off" required>
+
+            <label class="popup__label" for="users">Users</label>
+            <select class="popup__input" autocomplete="off" name="users" multiple>
+
+            </select>
+
+            <button class="popup__button" type="submit">Save</button>
+        </form>
+    </div>
+
+    <script type="module" src="../api.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
