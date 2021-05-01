@@ -1,4 +1,4 @@
-let local = false;
+let local = true;
 let baseUrl = local ? 'http://127.0.0.1:8000/' : 'https://hedgy1.pythonanywhere.com/';
 
 const getAuth = (method, user, pass) => {
@@ -33,6 +33,16 @@ class authAPI {
 
     static async login(user, pass) {
         const res = await fetch(baseUrl + 'auth/login/', getAuth('GET', user, pass));
+        return res.json();
+    }
+
+    static async addPoint(user, pass, id) {
+        let obj = await fetch(baseUrl + `auth/users/${id}`, getAuth('GET', user, pass));
+        obj = await obj.json();
+        let points = obj.voidPoints;
+        let settings = getAuth('PATCH', user, pass);
+        settings.body = JSON.stringify({ 'voidPoints': points + 1 });
+        const res = await fetch(baseUrl + `auth/users/${id}/`, settings)
         return res.json();
     }
 }
@@ -97,4 +107,77 @@ class nodeAPI {
     }
 }
 
-export { authAPI, treeAPI, nodeAPI };
+class vTreeAPI {
+    constructor(user, pass) {
+        this.username = user;
+        this.password = pass;
+    }
+
+    async treeList() {
+        const res = await fetch(baseUrl + 'trees/void-trees/', getAuth('GET', this.username, this.password));
+        return res.json();
+    }
+
+    async createTree(name) {
+        let settings = getAuth('POST', this.username, this.password);
+        settings.body = JSON.stringify({
+            'name': name
+        });
+        const res = await fetch(baseUrl + 'trees/void-trees/', settings);
+        return res.json();
+    }
+
+    async treeDetail(id) {
+        const res = await fetch(baseUrl + `trees/void-trees/${id}/`, getAuth('GET', this.username, this.password));
+        return res.json();
+    }
+
+    async editTree(id, data) {
+        let settings = getAuth('PATCH', this.username, this.password);
+        settings.body = JSON.stringify(data);
+        const res = await fetch(baseUrl + `trees/void-trees/${id}/`, settings);
+        return res.json();
+    }
+}
+
+class vNodeAPI {
+    constructor(user, pass) {
+        this.username = user;
+        this.password = pass;
+    }
+
+    async addNode(id, desc, parent, name, users) {
+        let settings = getAuth('POST', this.username, this.password);
+        settings.body = JSON.stringify({
+            'desc': desc,
+            'parent': parent,
+            'name': name,
+            'users': users
+        });
+        const res = await fetch(baseUrl + `trees/void-trees/${id}/`, settings);
+        return res.json();
+    }
+
+    async getNode(treeId, nodeId) {
+        const res = await fetch(baseUrl + `trees/void-trees/${treeId}/${nodeId}/`, getAuth('GET', this.username, this.password));
+        return res.json();
+    }
+
+    async editNode(treeId, nodeId, data) {
+        let settings = getAuth('PATCH', this.username, this.password);
+        settings.body = JSON.stringify(data);
+        const res = await fetch(baseUrl + `trees/void-trees/${treeId}/${nodeId}/`, settings);
+        return res.json();
+    }
+
+    async delNode(treeId, nodeId) {
+        const res = await fetch(baseUrl + `trees/trees/${treeId}/${noeId}/`, getAuth('DELETE', this.username, this.password));
+        return res.json();
+    }
+}
+
+export {
+    authAPI,
+    treeAPI, nodeAPI,
+    vTreeAPI, vNodeAPI
+};

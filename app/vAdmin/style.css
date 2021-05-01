@@ -1,0 +1,64 @@
+main {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    height: 100%;
+
+    background: #F3F4F4;
+
+    font-family: 'EB Garamond', serif;
+}
+
+.players {
+    display: flex;
+    align-items: center;
+    margin: 12px;
+    overflow: auto;
+}
+.player {
+    background-color: #fff;
+    border-radius: 12px;
+    height: 90%;
+    margin: 24px;
+    min-width: 300px;
+    max-width: 400px;
+}
+.player__info {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #C5C5C5;
+}
+.player__name {
+    font-size: 2em;
+}
+.player__points, .player__pointsButton {
+    justify-self: end;
+}
+.player__pointsButton {
+    background-color: #24B01A;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 16px;
+    border-radius: 12px;
+}
+.player__pointsButton:hover {
+    cursor: pointer;
+}
+.player__skills {
+    padding: 12px;
+}
+
+.skill {
+    background-color: #E9E9E9;
+    border-radius: 12px;
+    padding: 12px;
+}
+.skill__name {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+}
+.skill__desc {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .9em;
+}
